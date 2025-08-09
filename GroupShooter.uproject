@@ -1,22 +1,3 @@
-{
-	"FileVersion": 3,
-	"EngineAssociation": "5.6",
-	"Category": "",
-	"Description": "",
-	"Modules": [
-		{
-			"Name": "GroupShooter",
-			"Type": "Runtime",
-			"LoadingPhase": "Default"
-		}
-	],
-	"Plugins": [
-		{
-			"Name": "ModelingToolsEditorMode",
-			"Enabled": true,
-			"TargetAllowList": [
-				"Editor"
-			]
-		}
-	]
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:6e7e7ad9cc4977cb4b3422459ee68c0d47db123ac381d08fa7ca9fc02f970e52
+size 338
