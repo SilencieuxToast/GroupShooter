@@ -4,3 +4,8 @@
 
 #include "CoreMinimal.h"
 
+#ifdef CLANGD
+#include "clangd/Completions.h"
+#include "clangd/MacroCompletions.h"
+#endif
+

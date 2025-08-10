@@ -4,7 +4,14 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "InputActionValue.h"
 #include "ZombiePlayerCharacter.generated.h"
+
+class UInputComponent;
+class USkeletalMeshComponent;
+class UCameraComponent;
+class UInputAction;
+struct FInputActionValue;
 
 UCLASS()
 class GROUPSHOOTER_API AZombiePlayerCharacter : public ACharacter
@@ -19,11 +26,51 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Mesh")
+	USkeletalMeshComponent* FirstPersonMesh;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Mesh")
+	UCameraComponent* FirstPersonCamera;
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+	
+protected:
+
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Inputs")
+	UInputAction* MoveAction;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Inputs")
+	UInputAction* LookAction;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Inputs")
+	UInputAction* ReloadAction;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Inputs")
+	UInputAction* ShootAction;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Inputs")
+	UInputAction* JumpAction;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Inputs")
+	UInputAction* ADSAction;
+
+
+
+
+	private:
+
+	void OnJumpedTriggered(const struct FInputActionInstance& Instance);
+	void OnJumpedTriggeredEnd(const struct FInputActionInstance& Instance);
+
+	void Moving(const struct FInputActionValue& Value);
+
+	void Look(const struct FInputActionValue& Value);
 
 };

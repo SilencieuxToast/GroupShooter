@@ -19,7 +19,6 @@
 			"DOTNET_MULTILEVEL_LOOKUP": "0",
 			"DOTNET_ROLL_FORWARD": "LatestMajor"
 		},
-		"clangd.detectExtensionConflicts": false,
 		"clangd.arguments": [
 			"-header-insertion=iwyu",
 			"-header-insertion-decorators=true",
@@ -32,6 +31,7 @@
 			"-log=info"
 		],
 		"clangd.path": "c:\\Program Files\\LLVM\\bin\\clangd.exe",
+		"clangd.detectExtensionConflicts": false,
 		"files.associations": {
 			"*.clangd": "yaml",
 			"*.clang-format": "yaml",
