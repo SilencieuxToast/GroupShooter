@@ -61,26 +61,16 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Inputs")
 	UInputAction* ADSAction;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Inputs")
-	UInputAction* SprintAction;
 
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "stats")
-	float SprintSpeed;
-
-	
-	
 
 	private:
 
-	void OnJumpedTriggered(const struct FInputActionValue& Value);
-	void OnJumpedTriggeredEnd(const struct FInputActionValue& Value);
+	void OnJumpedTriggered(const struct FInputActionInstance& Instance);
+	void OnJumpedTriggeredEnd(const struct FInputActionInstance& Instance);
 
 	void Moving(const struct FInputActionValue& Value);
 
 	void Look(const struct FInputActionValue& Value);
-
-	void SprintStart(const struct FInputActionValue& Value);
-	void SprintEnd(const struct FInputActionValue& Value);
 
 };
