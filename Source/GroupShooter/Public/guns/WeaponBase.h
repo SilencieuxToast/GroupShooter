@@ -7,9 +7,40 @@
 #include "WeaponBase.generated.h"
 
 UENUM(BlueprintType)
-enum class EWeaponStats : uint8
+enum class EWeaponType : uint8
 {
-	N_Name1 UMETA(DisplayName="DisplayName")
+	Handgun UMETA(DisplayName="Pistols"),
+	Shotgun UMETA(DisplayName="Shotguns"),
+	Sniper UMETA(DisplayName="Snipers"),
+	Rifles UMETA(DisplayName="Rifles")
+
+};
+
+USTRUCT(BlueprintType)
+struct FWeaponStats
+{
+	GENERATED_USTRUCT_BODY()
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Stats")
+	float Damage;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Stats")
+	float ReloadSpeed;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Stats")
+	float FireRate;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Stats")
+	float BulletVelocity;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Stats")
+	int32 AmmoCount;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Stats")
+	int32 CurrentClip;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Stats")
+	int32 MagSize;
 };
 
 UCLASS()
