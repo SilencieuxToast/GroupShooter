@@ -11,6 +11,7 @@ class UInputComponent;
 class USkeletalMeshComponent;
 class UCameraComponent;
 class UInputAction;
+class USpringArmComponent;
 struct FInputActionValue;
 
 UCLASS()
@@ -31,6 +32,9 @@ protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Mesh")
 	UCameraComponent* FirstPersonCamera;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Mesh")
+	USpringArmComponent* SpringArmComp;
 
 public:	
 	// Called every frame
@@ -65,15 +69,19 @@ protected:
 	UInputAction* SprintAction;
 
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "stats")
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "stats",meta = (ClampMin = "0", ClampMax = "4"))
 	float SprintSpeed;
+
+
 
 	
 	
 
 	private:
 
+
 	void OnJumpedTriggered(const struct FInputActionValue& Value);
+
 	void OnJumpedTriggeredEnd(const struct FInputActionValue& Value);
 
 	void Moving(const struct FInputActionValue& Value);

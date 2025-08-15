@@ -5,15 +5,22 @@
 #include "Components/PrimitiveComponent.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Camera/CameraComponent.h"
+//#include "GameFramework/SpringArmComponent.h"
+#include "Components/SkinnedMeshComponent.h"
+#include "Containers/Array.h"
+#include "Engine/SkeletalMesh.h"
+#include "GameFramework/SpringArmComponent.h"
 #include "InputActionValue.h"
 #include "InputModifiers.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedPlayerInput.h"
 #include "InputTriggers.h"
 #include "Logging/LogMacros.h"
+#include "Logging/LogVerbosity.h"
 #include "Math/MathFwd.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
+class USpringArmComponent;
 
 // Sets default values
 AZombiePlayerCharacter::AZombiePlayerCharacter()
@@ -21,26 +28,27 @@ AZombiePlayerCharacter::AZombiePlayerCharacter()
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 	GetCharacterMovement()->MaxCustomMovementSpeed = GetCharacterMovement()->MaxWalkSpeed;
-	SprintSpeed = GetCharacterMovement()->MaxWalkSpeed * 2;
+	SprintSpeed = GetCharacterMovement()->GetMaxSpeed() * SprintSpeed;
 	
-	
 
-	FirstPersonMesh = CreateDefaultSubobject<USkeletalMeshComponent>(FName(TEXT("FPMesh")));
-	FirstPersonMesh->SetupAttachment(GetMesh());
-	FirstPersonMesh->FirstPersonPrimitiveType = EFirstPersonPrimitiveType::FirstPerson;
-	FirstPersonMesh->SetCollisionProfileName(FName("NoCollision"));
-
-
+	SpringArmComp = CreateDefaultSubobject<USpringArmComponent>(FName("SpringArm"));
+	SpringArmComp->SetupAttachment(GetMesh(), FName("CameraSocket"));
+	SpringArmComp->TargetArmLength = 0;
 	
 	FirstPersonCamera = CreateDefaultSubobject<UCameraComponent>(FName(TEXT("FPCamera")));
-	FirstPersonCamera->SetupAttachment(GetMesh(), FName("FPCameraSocket"));
+	FirstPersonCamera->SetupAttachment(SpringArmComp);
 	FirstPersonCamera->bUsePawnControlRotation = true;
 	FirstPersonCamera->bEnableFirstPersonFieldOfView = true;
 	FirstPersonCamera->bEnableFirstPersonScale = true;
 	FirstPersonCamera->FirstPersonFieldOfView = 70.0f;
 	FirstPersonCamera->FirstPersonScale = 0.6f;
 
-	
+	/*
+	FirstPersonMesh = CreateDefaultSubobject<USkeletalMeshComponent>(FName(TEXT("FPMesh")));
+	FirstPersonMesh->SetupAttachment(FirstPersonCamera);
+	FirstPersonMesh->FirstPersonPrimitiveType = EFirstPersonPrimitiveType::FirstPerson;
+	FirstPersonMesh->SetCollisionProfileName(FName("NoCollision"));
+*/
 
 }
 
@@ -55,7 +63,7 @@ void AZombiePlayerCharacter::BeginPlay()
 void AZombiePlayerCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
+	
 }
 
 // Called to bind functionality to input
@@ -137,7 +145,8 @@ void AZombiePlayerCharacter::Look(const FInputActionValue& Value)
 void AZombiePlayerCharacter::SprintStart(const FInputActionValue& Value)
 {	
 	GetCharacterMovement()->MaxWalkSpeed = GetCharacterMovement()->MaxWalkSpeed * SprintSpeed;
-	UE_LOG(LogTemp, Warning, TEXT("Sprinting Speed: %f"), GetCharacterMovement()->MaxWalkSpeed);
+	
+	
 
 }
 
